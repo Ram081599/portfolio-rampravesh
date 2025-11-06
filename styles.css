@@ -1,0 +1,446 @@
+:root{
+  --brand:#007acc;
+  --muted:#6b7280;
+  --card:#ffffff;
+}
+
+* {
+  box-sizing:border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  margin: 0;
+  color: #0f172a;
+  background-image: url("../images/w13.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+}
+
+/* Add overlay */
+body:before {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+/* Add background wrapper */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('./images/w13.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay);
+  z-index: -1;
+  pointer-events: none;
+}
+/* Ensure content stays above overlay */
+.hero, .section {
+  position: relative;
+  z-index: 1;
+}
+.hero {
+  background: linear-gradient(135deg, rgb(15, 76, 129), rgb(11, 39, 76));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.4rem;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.hero-content{max-width:720px;color:#ffffff}
+.hero-tag{display:block;font-weight:600;color:rgba(255,255,255,0.85)}
+.hero-title{font-size:2.25rem;font-weight:800;margin:0.2rem 0;color:#ffffff}
+.hero-desc{color:rgba(255,255,255,0.88);margin-bottom:1rem}
+.profile-img{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,0.2);
+  box-shadow:0 8px 32px rgba(0,0,0,0.2);
+}
+.section{
+  max-width:960px;
+  margin:1.25rem auto;
+  padding:1rem;
+  position: relative;
+  z-index: 1;
+}
+.section-title{
+  font-weight:800;
+  color:var(--brand);
+  margin-bottom:1.5rem;
+  font-size:1.4rem;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand), transparent);
+  border-radius: 2px;
+}
+.cards{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* --- Carousel styles (in-place) --- */
+.carousel-container{
+  position:relative;
+  width:100%;
+  /* increased max-width so slides can appear larger on wide screens */
+  max-width:1100px;
+  margin:0 auto;
+  overflow: hidden;
+}
+.carousel-track{
+  display:flex;
+  transition:transform 0.5s ease;
+  will-change:transform;
+}
+.carousel-slide{
+  flex:0 0 100%;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:1rem 0;
+}
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.8);
+  border:0;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  box-shadow:0 6px 18px rgba(2,6,23,0.08);
+  z-index:10;
+}
+.carousel-btn.prev{left:8px}
+.carousel-btn.next{right:8px}
+.carousel-btn i{color:var(--brand);font-size:16px}
+.carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.dot{width:10px;height:10px;border-radius:50%;background:rgba(2,6,23,0.12);border:0;cursor:pointer}
+.dot.active{background:var(--brand);transform:scale(1.2)}
+
+/* Make the card narrower when inside carousel for better framing */
+.carousel-slide .card{
+  width:96%;
+  /* allow a much wider card on large screens */
+  max-width:920px;
+  /* give more vertical space so content breathes */
+  min-height:360px;
+  /* slightly larger padding for a more spacious look */
+  padding:2rem;
+}
+
+.carousel-slide .card .card-title{
+  font-size:1.1rem;
+}
+
+@media(max-width:920px){
+  /* On medium screens keep buttons slightly inset */
+  .carousel-btn.prev{left:8px}
+  .carousel-btn.next{right:8px}
+}
+
+@media(max-width:720px){
+  .carousel-btn{width:36px;height:36px}
+  .carousel-slide .card{width:96%}
+}
+
+/* End carousel styles */
+.card{
+  flex:1 1 280px;
+  background:rgba(255,255,255,0.8);
+  padding:1.5rem;
+  border-radius:16px;
+  box-shadow:0 8px 30px rgba(2,6,23,0.08);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.card:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(2,6,23,0.08)}
+.card-title{font-weight:700;color:#0b5f4a;margin-bottom:.6rem}
+.card-illustration{width:100%;height:96px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:.6rem;color:white;font-size:32px}
+.card-illustration.heart{background:linear-gradient(90deg,#ff7a7a,#ffb199)}
+.card-illustration.cloud{background:linear-gradient(90deg,#7ac7ff,#bfe9ff)}
+.card-illustration.robot{background:linear-gradient(90deg,#a18cff,#fbc2eb)}
+.card-desc{transition:all .28s ease;color:rgba(3,7,18,0.8)}
+.card-more{max-height:0;overflow:hidden;transition:max-height .36s ease;padding-top:0;margin-top:0}
+.card.expanded{transform:scale(1.02);box-shadow:0 22px 60px rgba(2,6,23,0.14)}
+.card.expanded .card-more{max-height:240px;padding-top:.6rem;margin-top:.4rem}
+.card .cta{display:inline-block;margin-top:.6rem;padding:.4rem .7rem;border-radius:8px;background:var(--brand);color:white;text-decoration:none;cursor:pointer}
+.skills-carousel {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+  margin: 1rem 0;
+}
+
+.skills-container {
+  overflow: hidden;
+  position: relative;
+  padding: 1rem 0;
+}
+
+.skills-grid {
+  display: flex;
+  gap: 1.2rem;
+  transition: transform 0.5s ease;
+  padding: 0.5rem 0;
+}
+
+.skill-item {
+  flex: 0 0 160px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.7);
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  height: 80px;
+}
+
+.skill-item:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+}
+.skill-icon{
+  width: 32px;
+  height: 32px;
+  object-fit: contain; /* This ensures the image maintains its aspect ratio */
+  flex-shrink: 0; /* Prevents the icon from shrinking */
+}
+
+.skill-item span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d3748;
+  /* Prevent text from wrapping awkwardly */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.project-img{width:100%;height:auto;border-radius:8px;margin:0.6rem 0;cursor:pointer}
+/* Contact list styling */
+.contact-section{display:flex;flex-direction:column;align-items:center;gap:0.6rem}
+.contact-list{display:flex;flex-direction:column;gap:0.6rem;width:100%;max-width:520px;margin-top:.6rem}
+.contact-item{display:flex;align-items:center;gap:.75rem;background:#fff;padding:.6rem 0.9rem;border-radius:10px;border:1px solid rgba(2,6,23,0.04);text-decoration:none;color:inherit;box-shadow:0 8px 24px rgba(2,6,23,0.04)}
+.contact-item i{font-size:1.18rem;color:var(--brand);width:28px;text-align:center}
+.contact-item span{font-weight:600}
+/* Header contact badges */
+.header-contacts{display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end}
+.header-contact{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  background:rgba(255,255,255,0.1);
+  padding:.45rem .75rem;
+  border-radius:999px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  text-decoration:none;
+  color:#ffffff;
+  font-weight:600;
+  border:1px solid rgba(255,255,255,0.15);
+  transition: all 0.3s ease;
+}
+.header-contact:hover {
+  background:rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+.header-contact i{color:rgba(255,255,255,0.95);font-size:1rem;width:22px;text-align:center}
+@media(min-width:880px){.header-contacts{flex-direction:row;gap:0.7rem;align-items:center}}
+footer{max-width:960px;margin:1.5rem auto;padding:1rem;text-align:center;color:var(--muted)}
+/* modal */
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:2000}
+.modal.show{display:flex}
+.modal-img{max-width:92%;max-height:88%;border-radius:8px}
+.modal-close{position:absolute;top:18px;right:22px;color:white;background:transparent;border:0;font-size:28px;cursor:pointer}
+.top-btn{position:fixed;right:20px;bottom:26px;background:var(--brand);color:white;border:0;padding:.6rem .75rem;border-radius:999px;display:none;z-index:1500}
+.top-btn.show{display:block}
+@media(max-width:720px){.hero{flex-direction:column;align-items:flex-start}.profile-img{width:96px;height:96px}}
+/* Skills carousel behavior on small screens: convert grid into a horizontal track without changing desktop layout */
+.skills-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--brand);
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.skills-nav:hover {
+  background: #0056b3;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.skills-nav.prev {
+  left: 0;
+}
+
+.skills-nav.next {
+  right: 0;
+}
+
+.skills-nav i {
+  font-size: 14px;
+}
+
+.skills-nav.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Add gradient masks at the edges */
+.skills-container::before,
+.skills-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.skills-container::before {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+}
+
+.skills-container::after {
+  right: 0;
+  background: linear-gradient(-90deg, rgba(255,255,255,0.9), transparent);
+}
+
+@media (max-width: 768px) {
+  .skills-carousel {
+    padding: 0 30px;
+  }
+  
+  .skills-nav {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .skills-grid {
+    gap: 0.8rem;
+  }
+  
+  .skill-item {
+    flex: 0 0 140px;
+  }
+}
+/* Resume section styles */
+.resume-section{padding:1rem 1rem 2rem;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));border-radius:12px;margin-top:1rem}
+.resume-uploader{display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap}
+.resume-input{display:inline-flex;align-items:center;gap:.6rem}
+.resume-btn{background:var(--brand);color:#fff;padding:.5rem .8rem;border-radius:8px;border:0;cursor:pointer;font-weight:600}
+.resume-list{margin-top:0.8rem;display:flex;flex-direction:column;gap:.6rem}
+.resume-item{display:flex;align-items:center;justify-content:space-between;gap:0.6rem;background:#fff;padding:.6rem .75rem;border-radius:10px;border:1px solid rgba(2,6,23,0.04)}
+.resume-meta{display:flex;align-items:center;gap:.6rem}
+.resume-name{font-weight:600}
+.resume-actions{display:flex;gap:.5rem}
+.resume-actions button{background:transparent;border:1px solid rgba(2,6,23,0.06);padding:.35rem .5rem;border-radius:8px;cursor:pointer}
+.resume-actions button.primary{background:var(--brand);color:#fff;border-color:transparent}
+.resume-empty{color:var(--muted);padding:.6rem}
+.small-note{font-size:0.9rem;color:var(--muted);margin-top:0.4rem}
+/* Resume viewer */
+.resume-viewer {
+  margin-top: 1.5rem;
+  background: rgba(255,255,255,0.8);
+  border-radius: 16px;
+  padding: 2.5rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: 0 8px 32px rgba(2,6,23,0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.resume-viewer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(2,6,23,0.12);
+}
+
+.resume-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: var(--brand);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.resume-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.resume-link i {
+  font-size: 1.4rem;
+}

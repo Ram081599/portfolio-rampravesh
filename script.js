@@ -176,9 +176,9 @@
     const scrollAmount = (itemWidth + gap) * itemsPerScroll;
     let autoScrollInterval = null;
     let pauseTimeout = null;
-    const AUTO_SCROLL_DELAY = 50; // Update every 50ms for smooth movement
+    const AUTO_SCROLL_DELAY = 100; // Update every 50ms for smooth movement
     const INTERACTION_PAUSE = 1000; // Resume after 1 second of no interaction
-    const SCROLL_SPEED = 1; // Pixels to move per frame
+    const SCROLL_SPEED = 2; // Pixels to move per frame
     
     // Calculate the width of a complete set of items
     const items = track.children;
@@ -204,7 +204,8 @@
           track.style.transform = `translateX(-${position}px)`;
           // Force reflow
           track.offsetHeight;
-          track.style.transition = 'transform 0.5s ease';
+          track.style.transition = 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+          // 'transform 0.5s ease';
         }
       } else {
         position += scrollStep;
@@ -215,7 +216,7 @@
           track.style.transform = `translateX(-${position}px)`;
           // Force reflow
           track.offsetHeight;
-          track.style.transition = 'transform 0.5s ease';
+          track.style.transition = 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
         }
       }
 
@@ -243,7 +244,7 @@
           track.style.transform = `translateX(-${position}px)`;
           // Force reflow
           track.offsetHeight;
-          track.style.transition = 'transform 0.5s ease';
+          track.style.transition =  'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
         }
         
         track.style.transform = `translateX(-${position}px)`;
@@ -256,7 +257,7 @@
     function startAutoScroll() {
       if (animationFrameId) return;
       lastTimestamp = 0;
-      track.style.transition = 'transform 0.5s ease';
+      track.style.transition =  'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
       animationFrameId = requestAnimationFrame(animate);
     }
 
@@ -313,7 +314,7 @@
 
     track.addEventListener('touchend', () => {
       isDragging = false;
-      track.style.transition = 'transform 0.5s ease';
+      track.style.transition =  'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
       updateNavigation();
       pauseAutoScroll();
     });
